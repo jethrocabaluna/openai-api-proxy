@@ -2,8 +2,10 @@ import { onRequest } from 'firebase-functions/v2/https'
 import * as logger from 'firebase-functions/logger'
 import express from 'express'
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from 'openai'
+import cors from 'cors'
 
 const app = express()
+app.use(cors({ origin: true }))
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
