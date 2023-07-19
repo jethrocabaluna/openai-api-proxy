@@ -105,10 +105,12 @@ app.get('/escape-room', async (req, res) => {
     escapeRoom.imageUrl = imageUrl
 
     // setups the prompts to make it more likely to provide a different response
-    escapeRoomsPromptHistory.push({
-      role: 'assistant',
-      content: rawJson,
-    })
+    if (escapeRoomsPromptHistory[escapeRoomsPromptHistory.length - 1].role === 'user') {
+      escapeRoomsPromptHistory.push({
+        role: 'assistant',
+        content: rawJson,
+      })
+    }
 
     return res.json(escapeRoom)
   } catch (err) {
@@ -143,10 +145,12 @@ app.get('/hotel-fact', async (req, res) => {
     logger.info('hotelFact', hotelFact)
 
     // setups the prompts to make it more likely to provide a different response
-    hotelFactPromptHistory.push({
-      role: 'assistant',
-      content: rawJson,
-    })
+    if (hotelFactPromptHistory[hotelFactPromptHistory.length - 1].role === 'user') {
+      hotelFactPromptHistory.push({
+        role: 'assistant',
+        content: rawJson,
+      })
+    }
 
     return res.json(hotelFact)
   } catch (err) {
